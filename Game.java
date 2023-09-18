@@ -25,7 +25,7 @@ public class Game {
                 System.exit(0);
                 break;
             }
-            stateId = takeAction(action, stateId);
+            stateId = takeAction();
         }
     }
 
@@ -35,90 +35,35 @@ public class Game {
         if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit")){
             System.out.println("Thanks for playing. Goodbye!");
             System.exit(0);
+        } else{
+            return input;
         }
         return input;
-
 }
 
-    public static int takeAction(String action, int currentState) {
-        switch (currentState) {
-            case 0:
-                if (action.equals("open the door")) {
-                    return 1;
-                } else if (action.equals("take item")) {
-                    return 2;
-                }
+    public static int takeAction() {
+        String action = getInput();
+        switch (action) {
+            case "open the door":
+                    stateId = 1;
                 break;
-            case 1:
-                if (action.equals("go east")) {
-                    return 3;
+            case "take item":
+                    stateId = 2;
+                break;
+            case "go east":
+                if (action.equalsIgnoreCase("go east")) {
+                    stateId = 3;
                 }
                 break;
             default:
+                System.out.println("Invalid action. Try something else.");
+                takeAction();
                 break;
-        }
-        System.out.println("Invalid action. Try something else.");
-        return currentState; // Stay in the current state if no valid action found
-    }
-
-    // Rest of your code remains unchanged...
-
-    public static void gameStart() {
-        System.out.print("\nWould you like to start the game? (yes/no): ");
-        String answer1 = getInput();
-        if (answer1.equals("yes") || answer1.equals("y")) {
-            System.out.println("Ok, get ready!\n");
-            waitTime();
-        } else if (answer1.equals("no") || answer1.equals("n") || answer1.equals("exit") || answer1.equalsIgnoreCase("quit")) {
-            System.out.println("Thanks for playing. Goodbye!");
-            stateId = -1; // Set stateId to a negative value to exit the game loop
-            System.exit(0);
-        } else {
-            System.out.println("I don't understand. Please enter 'yes' or 'no'.");
-            gameStart();
-        }
+        } return stateId;
     }
 
 
-
- public static void age() {
-    while (true) {
-        System.out.print("What year were you born? ");
-        String bday1 = getInput();
-        try {
-            int number = Integer.parseInt(bday1);
-            System.out.print("You are " + (2023 - number) + " years old!");
-            if ((number < 2023) && ((2023 - number) >= 100)) {
-                    if ((2023 - number) >= 130) {
-                        System.out.println(" You must be a wizard!");
-                        return;
-                    } else {
-                        System.out.println(" You are really old");
-                        return;
-                    }
-            } else if (number == 2023) {
-                System.out.println("You were born this year, you are 0 years old!");
-                return;
-            } else if (number > 2023) {
-                randomNotBornYet();
-                age();
-                return;
-            } return;
-        } catch (NumberFormatException e) {
-            if (bday1.equalsIgnoreCase("exit")|| bday1.equalsIgnoreCase("quit")){
-                System.out.println("Thanks for playing. Goodbye!");
-                System.exit(0);
-                return;
-            } else {
-                System.out.println(bday1 + " is not a valid answer, try a number instead!\n");
-                age();
-                return;
-            }
-        }
-    }
-}
-
-public static void printState(int stateId) {
+    public static void printState(int stateId) {
         switch (stateId) {
             case 0:
                 System.out.println("\nYou are standing in an abandoned university office. There are neither students nor teachers around you.");
@@ -143,8 +88,66 @@ public static void printState(int stateId) {
         }stateId = stateId + 1;
     }
 
+
+    public static void gameStart() {
+        System.out.print("\nWould you like to start the game? (yes/no): ");
+        String answer1 = getInput();
+        if (answer1.equalsIgnoreCase("yes") || answer1.equals("y")) {
+            System.out.println("Ok, get ready!");
+            waitTime();
+        } else if (answer1.equalsIgnoreCase("no") || answer1.equals("n") || answer1.equals("exit") || answer1.equalsIgnoreCase("quit")) {
+            System.out.println("Thanks for playing. Goodbye!");
+            System.exit(0);
+        } else {
+            System.out.println("I don't understand. Please enter 'yes' or 'no'.");
+            gameStart();
+        }
+    }
+
+
+
+ public static void age() {
+    while (true) {
+        System.out.print("What year were you born? ");
+        String bday1 = getInput();
+        try {
+            int number = Integer.parseInt(bday1);
+            if ((number < 2023) && ((2023 - number) >= 100)) {
+                    if ((2023 - number) >= 130) {
+                        System.out.print("You are " + (2023 - number) + " years old!");
+                        System.out.println(" You must be a wizard!");
+                        return;
+                    } else {
+                        System.out.print("You are " + (2023 - number) + " years old!");
+                        System.out.println(" You are really old");
+                        return;
+                    }
+            } else if (number == 2023) {
+                System.out.println("You were born this year, you are 0 years old! ");
+                return;
+            } else if (number > 2023) {
+                randomNotBornYet();
+                age();
+                return;
+            } return;
+        } catch (NumberFormatException e) {
+            if (bday1.equalsIgnoreCase("exit")|| bday1.equalsIgnoreCase("quit")){
+                System.out.println("Thanks for playing. Goodbye!");
+                System.exit(0);
+                return;
+            } else {
+                System.out.println(bday1 + " is not a valid answer, try a number instead!\n");
+                age();
+                return;
+            }
+        }
+    }
+}
+
+
+
     public static void waitTime(){
-        int delay = 5000; // number of milliseconds to sleep
+        int delay = 5000; 
         long start = System.currentTimeMillis();
         while(start >= System.currentTimeMillis() - delay);
     }
