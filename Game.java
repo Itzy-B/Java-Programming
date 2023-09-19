@@ -1,12 +1,12 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Game {
+public class Game_Try {
     private static Scanner scanner = new Scanner(System.in);
     private static int stateId = 0;
 
     public static void main(String[] args) {
-        System.out.println("Welcome to the Adventure Game by Levent Koca\n");
+        System.out.println("       __\n" + "      / /__  ____________  __ \n"+ " __  / / _ \\/ ___/ ___/ / / /\n" + "/ /_/ /  __/ /  / /  / /_/ / \n" + "\\____/\\___/_/  /_/   \\__  / \n" + "                    /____/ " + "\n\nby: Levent Koca\n");
         System.out.print("What is your name? ");
         String userName = getInput();
         if (userName.equalsIgnoreCase("exit") || userName.equalsIgnoreCase("quit")) {
@@ -18,10 +18,9 @@ public class Game {
         age();
         gameStart();
 
-        while (stateId >= 0) {
+        while (stateId != 666) {
             printState(stateId);
-            stateId = takeAction();
-            
+            stateId = takeAction(stateId);
         }
 
         System.out.println("Thanks for playing. Goodbye!");
@@ -29,28 +28,69 @@ public class Game {
 
     public static String getInput() {
         System.out.print("Enter a valid response: ");
-        String input = scanner.nextLine().toLowerCase().replaceAll("\\s", "");
-        if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit")) {
+        String input = scanner.nextLine().toLowerCase().replaceAll("\\s+","");
+       /* if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit")) {
             System.out.println("Thanks for playing. Goodbye!");
             System.exit(0);
-        }
+        }*/
         return input;
     }
 
-    public static int takeAction() {
+    public static int takeAction(int currentState) {
         String action = getInput();
         switch (action) {
-            case "open the door":
-                return stateId = 1;
-            case "take item":
-                stateId = 2;
-                return stateId = 2;
-            case "go east":
-                return stateId = 1;
+            case "openthedoor":
+                if (currentState == 0) return 1;
+                break;
+            case "gonorth":
+                // Handle the "gonorth" action for currentState 1
+                if (currentState == 1) {
+                    System.out.println("You go north and find a locked door.");
+                    return 1;
+                }
+                break;
+            case "goeast":
+                // Handle the "goeast" action for currentState 1
+                if (currentState == 1) return 3;
+                break;
+            case "gosouth":
+                // Handle the "gosouth" action for currentState 1
+                if (currentState == 1) {
+                    System.out.println("You go south back to your office.");
+                    return 0;
+                }
+                break;
+            case "gowest":
+                // Handle the "gowest" action for currentState 1
+                if (currentState == 1) {
+                    System.out.println("You walk into a wall. Ouch!");
+                    return 1;
+                }
+                break;
+            case "takeitem":
+                if (currentState == 0) return 2;
+                break;
+            case "dropitem":
+                // Handle the "dropitem" action for currentState 2
+                if (currentState == 2) {
+                    System.out.println("You don't have any items to drop.");
+                    return 2;
+                }
+                break;
+            case "useitem":
+                // Handle the "useitem" action for currentState 2
+                if (currentState == 2) {
+                    System.out.println("You don't know how to use this item.");
+                    return 2;
+                }
+                break;
+            case "quit":
+                return 666; // Special value to exit the game
             default:
                 System.out.println("Invalid action. Try something else.");
-                return stateId = 0;
+                break;
         }
+        return currentState; // Return the same state if action is not valid or applicable
     }
 
     public static void printState(int stateId) {
@@ -61,20 +101,20 @@ public class Game {
                 System.out.println("A large window shows an empty office building; there are no Zombies in the empty building (as far as you can tell).");
                 System.out.println("Behind you is a dark and mysterious door that leads to a well-lit corridor with a fireproof ceiling and floor.");
                 System.out.println("You feel a sense of Wi-Fi around you, the grinding of an LCD operated coffee machine can be heard in the distance.");
-                System.out.println("You are not thirsty, but you rather have a craving for justice.\n");
-                return;
+                System.out.println("You are not thirsty, but you rather have a craving for justice.");
+                break;
             case 1:
                 System.out.println("You are in a long hallway. There’s a man wearing glasses at the end of it, he looks harmless. West is a wall, east is the man, to the north is nothing but empty offices, a desperate sight.");
                 System.out.println("The carpeting in the hallway feels soft, you hear the clicking of a mouse in the distance. Your office is south (behind you).");
-                return;
+                break;
             case 2:
                 System.out.println("You take the calculator from your desk. It’s a Casio FX-85gt Plus. The display shows the number 0.1134. You turn it upside down; now the Casio greets you with a friendly “hello”, nice. You hold the calculator in your hand.");
-                return;
+                break;
             case 3:
                 System.out.println("The man greets you and starts endlessly talking to you about his children and his holiday to Benidorm. You die of boredom.");
-                return;
+                break;
             default:
-                return;
+                break;
         }
     }
 
