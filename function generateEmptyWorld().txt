@@ -1,0 +1,21 @@
+function generateEmptyWorld():
+    create a new 2D array called world with dimensions NEW_WORLD_WIDTH and NEW_WORLD_HEIGHT
+    set redBlock to 1
+    set whiteBlock to 4
+    set blueBlock to 3
+    set stripeHeight to NEW_WORLD_HEIGHT divided by 3
+
+    // Fill the top stripe with red blocks
+    for y from 0 to stripeHeight - 1:
+        for x from 0 to NEW_WORLD_WIDTH - 1:
+            set world[x][y] to redBlock
+
+    // Fill the middle stripe with white blocks
+    for y from stripeHeight to stripeHeight * 2 - 1:
+        for x from 0 to NEW_WORLD_WIDTH - 1:
+            set world[x][y] to whiteBlock
+
+    // Fill the bottom stripe with blue blocks
+    for y from stripeHeight * 2 to NEW_WORLD_HEIGHT - 1:
+        for x from 0 to NEW_WORLD_WIDTH - 1:
+            set world[x][y] to blueBlock
