@@ -1,39 +1,49 @@
-import java.util.*;
 import java.util.Scanner;
 
 public class CoolNumbers {
-    private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-    
+        System.out.print("Enter n: ");
+        int n = scanner.nextInt();
 
+        System.out.print("Enter a: ");
+        int a = scanner.nextInt();
+
+        System.out.print("Enter b: ");
+        int b = scanner.nextInt();
+
+        int count = countCools(n, a, b);
+        System.out.println("Number of cool numbers between " + a + " and " + b + " with n=" + n + ": " + count);
+
+        scanner.close();
     }
-    public static boolean isCool(int x, int n, int a, int b) {
-        System.out.print("Enter a positive integer : ");
-        a = scanner.nextInt();
-        while (true){
-        
-        if (a > 0){
-            System.out.print("Enter another positive integer: ");
-            b = scanner.nextInt();
-            if (b > 0) {
-                break;
-            }else {
-                System.out.print("Invalid, please enter a \"POSITIVE\" \", INTEGER!\"");
-                isCool(x, n, a, b);
+
+    public static boolean isCool(int x, int n) {
+
+        if (x <= 0 || n <= 0) {
+            System.out.print("The values should be bigger than 0, thus ");
+            return false;
+        }
+
+        int temp = x;
+        while (temp != 0) {
+            int digit = temp % 10;
+            if (digit == 0 || n % digit != 0) {
+                return false;
             }
-        } else{
-          System.out.print("Invalid, please enter a \"POSITIVE\" \", INTEGER!\"");
-          isCool(x, n, a, b);
+            temp /= 10;
+        }
+        return true;
+    }
+
+    public static int countCools(int n, int a, int b) {
+        int count = 0;
+        for (int i = a; i <= b; i++) {
+            if (isCool(i, n)) {
+                count++;
             }
         }
-        
+        return count;
     }
-
-    /* public static int countCools(int n, int a, int b) {
-     // your code here
-    } */
-
-
-    
 }

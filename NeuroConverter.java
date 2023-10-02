@@ -9,14 +9,16 @@ public class NeuroConverter {
 }
 
 public static void converter(double amount) {
-    int a = (int) amount, b, c, d;
-
+    int amountInt = (int) amount;
+    amountInt = amountInt * 100;
+    amount *= 100;
+    int a, b, c, d;
     a = (int) amount;
-    b = (int) ((amount - a) / 0.49);
-    c = (int) (((amount - a) - (b * 0.49)) / 0.09);
-    d = (int) (((amount - a) - (b * 0.49) - (c * 0.9)) / 0.01);
+    b = (int) ((amount - amountInt) / 49);
+    c = (int) (((amount - amountInt) - (b * 49)) / 9);
+    d = (int) (((amount - amountInt) - (b * 49) - (c * 9)) / 1);
 
-    System.out.println(a);
+    System.out.println(a/100);
     System.out.println(b);
     System.out.println(c);
     System.out.println(d);
