@@ -11,11 +11,10 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TestofTest extends Application {
     private MediaPlayer currentMediaPlayer;
-
+    private int currentSongIndex = 0;
     private List<MediaPlayer> players = new ArrayList<>();
 
     final String musicFile2 = "App/Sound/Hotlanta - Track Tribe.mp3";
@@ -30,6 +29,7 @@ public class TestofTest extends Application {
     final String imagePath = "C:/Users/gamef/Desktop/Project11/GUI_Work/App/Images/mr1.jpg";
     final Image bckgroundb1 = new Image("file:" + imagePath);
 
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -42,17 +42,19 @@ public class TestofTest extends Application {
         }
     }
 
-    private void playRandomMusic(MediaPlayer... mediaPlayers) {
+    private void playNextSong(MediaPlayer... mediaPlayers) {
         for (MediaPlayer player : mediaPlayers) {
             if (player.getStatus() == MediaPlayer.Status.PLAYING) {
                 player.stop();
             }
             players.add(player);
         }
-
-        Random random = new Random();
-        currentMediaPlayer = players.get(random.nextInt(players.size()));
-        currentMediaPlayer.play();
+    
+        if (!players.isEmpty()) {
+            currentMediaPlayer = players.get(currentSongIndex);
+            currentMediaPlayer.play();
+            currentSongIndex = (currentSongIndex + 1) % players.size(); // Move to the next song in the list
+        }
     }
 
     @Override
@@ -101,11 +103,11 @@ public class TestofTest extends Application {
         // New Button to go back to menu and randomize music.
         strtgamebtn.setOnAction(e -> {
             stopCurrentMusic();
-            playRandomMusic(music1, music2);
+            playNextSong(music1, music2);
             // Create a new layout for the second scene
             StackPane root2 = new StackPane();
             Button backButton = new Button("Go back to menu");
-            Button randomButton = new Button("Random");
+            Button randomButton = new Button("Next Music --->");
             backButton.setTranslateX(-190);
             backButton.setTranslateY(-330);
             randomButton.setTranslateX(190);
@@ -124,7 +126,7 @@ public class TestofTest extends Application {
 
             randomButton.setOnAction(event -> {
             stopCurrentMusic();
-            playRandomMusic(music1, music2);
+            playNextSong(music1, music2);
             });
             // Disable resizing of the second scene
             primaryStage.setResizable(false);
