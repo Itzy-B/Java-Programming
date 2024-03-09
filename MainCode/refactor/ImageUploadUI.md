@@ -18,48 +18,50 @@
 - ``exploreUI()``
 
 ####Functionalities of the Functions:
-- ``ImageUploadUI()``
-    - Sets the upload image scene and then initializes the ui.
 
-- ``initializeUI()``
-    - Creates panels, text area and buttons and sets their allignment.
-    - Adds the panels to the frame.
+- ``ImageUploadUI Constructor:`` Initializes the UI for uploading images.
+    - Refactor and Improvement: Extract repetitive layout initialization code into separate methods to improve readability and maintainability.
 
-- ``uploadAction()``
-    - Creates a file chooser, allows the user to choose a picture and upload.
+- ``initializeUI():`` Sets up the main content panel with image preview, bio text area, and buttons.
 
-- ``getNextImageId()``
-    - Checks for the saved images then if goes throught the ID list and gets the next image.
+    - Refactor and Improvement: Break down the method into smaller, more focused methods for setting up each component, improving readability and allowing for easier modification of individual components.
 
-- ``saveImageInfo()``
-    - Saves the image data, when was it posted, the likes it has, ID, ...
+- ``uploadAction(ActionEvent event):`` Handles the action of uploading an image, including file selection, saving, and displaying the image preview.
 
-- ``getFileExtension()``
-    - Gets the file extension and checks if it is a valid file.
+    - Refactor and Improvement: Separate file handling logic into helper methods for better organization and potential reuse. Use try-with-resources for file operations to ensure resources are properly closed.
 
-- ``saveBioAction()``
-    - Just gets the text on bio, doesn't save.
+- ``getNextImageId(String username):`` Retrieves the next available image ID for a given username.
 
-- ``createHeaderPanel()``
-    - Creates the header panel.
+    - Refactor and Improvement: Extract the logic for finding the next image ID into a separate method to improve readability and maintainability. Ensure proper error handling for file operations.
 
-- ``readUsername()``
-    - Goes into the users file and reads the username.
+- ``saveImageInfo(String imageId, String username, String bio):`` Saves image information (ID, username, bio) to a text file.
 
-- ``createNavigationPanel()``
-    - Makes the navigation panel with the icons.
+    - Refactor and Improvement: Break down the method into smaller, more focused methods for file handling and timestamp generation. Use try-with-resources for file operations.
 
-- ``createIconButton()``
-    - Makes the icons into buttons and adds action listener to and forwards them to according pages.
+- ``getFileExtension(File file):`` Retrieves the extension of a given file.
 
-- ``openProfileUI``
-    - Checks if the username is in the files then forwards them to their profile.
+    - Refactor and Improvement: Simplify the method by using java.nio.file.Path instead of manipulating file names directly.
 
-- ``notificationsUI()``
-    - Creates an object to notificationUI
+- ``saveBioAction(ActionEvent event):`` Handles the action of saving the bio text.
 
-- ``openHomeUI()``
-    - Creates an object to homeUI
+    - Refactor and Improvement: Consider storing bio text in a more permanent storage solution such as a file or database instead of showing a message dialog.
 
-- ``exploreUI()``
-    - Creates an object to exploreUI
+- ``createHeaderPanel():`` Creates and returns the header panel for the UI.
+
+    - Refactor and Improvement: Consider making the header panel more generic by allowing customization of the header text and icon. Extract icon creation and button styling into helper methods.
+
+- ``readUsername():`` Reads the username from a file.
+
+    - Refactor and Improvement: Ensure proper error handling for file operations. Consider using a more robust data storage solution like a database for user information.
+
+- ``createNavigationPanel():`` Creates and returns the navigation panel with icons for home, explore, add, notification, and profile.
+
+    - Refactor and Improvement: Extract icon creation and button styling into helper methods. Consider making the method more flexible by allowing customization of icons and actions.
+
+- ``createIconButton(String iconPath, String buttonType): `` Creates and returns a button with the specified icon and action.
+
+    - Refactor and Improvement: Utilize enums for button types instead of strings to improve readability and avoid potential typos. Consider extracting action listeners into separate methods for better organization.
+
+- ``openProfileUI(), notificationsUI(), openHomeUI(), exploreUI():`` Methods to open different UI frames.
+
+    - Refactor and Improvement: Consider consolidating UI navigation logic into a single method for better control and consistency. Use enums or constants to represent different UI frames instead of hardcoding strings.
