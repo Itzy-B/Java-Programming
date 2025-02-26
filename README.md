@@ -1,1 +1,1 @@
-Go to ```"MainCode/Functionality of each method"``` in order to read the functionality of each code. This is a replica model of Instagram social media program called Quackstagram.
+Go to ```"MainCode/Functionality of each method"``` in order to read the functionality of each code. This is a replica model of Instagram social media program called Quackstagram. It functions using a local encrpited password storage (for testing purposes, thus databases weren't added yet).
